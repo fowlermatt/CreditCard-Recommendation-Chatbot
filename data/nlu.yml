@@ -103,31 +103,47 @@ nlu:
     - Tell me more about the [first](ordinal_reference) one
     - What are the details for the [second](ordinal_reference) card?
     - More info on the [last](ordinal_reference) recommendation
-    - Can you give me details about the [Citi Double Cash Card – 18 month BT](card_name) card?
-    - Tell me about [Discover it Student Cash Back](card_name)
+    - Can you give me details about the [Citi® Double Cash Card – 18 month BT](card_name) card?
+    - Tell me about [Discover it® Student Cash Back](card_name)
     - What about the [third](ordinal_reference) option?
     - More details please
     - Tell me more
-    - details on [U.S. Bank Altitude Go Visa Signature](card_name)?
+    - details on [U.S. Bank Altitude® Go Visa Signature](card_name)?
     - info on the [1st](ordinal_reference) card
     - the [second](ordinal_reference) one, please
     - What can you tell me about the [first](ordinal_reference)?
 
 - intent: ask_specific_feature
   examples: |
-    - What is the APR for the [first](ordinal_reference) card?
-    - Does the [second](ordinal_reference) one have an annual fee?
-    - What's the annual fee for [Citi Double Cash Card – 18 month BT](card_name)?
-    - Are there travel rewards on the [Chase Sapphire Preferred](card_name)?
-    - What are the rewards for the [third](ordinal_reference) card?
-    - Interest rate on [U.S. Bank Altitude Go Visa Signature](card_name)?
-    - What's the APR?
-    - Does it have rewards?
-    - is there a fee for the [second](ordinal_reference) one?
-    - minimum credit score for [Discover it Student Cash Back](card_name)?
-    - what score do i need for the [first](ordinal_reference) card?
-    - issuer for the [third](ordinal_reference)?
-    - who issues the [Capital One QuicksilverOne](card_name)?
+    - What is the [APR]{"entity": "card_feature", "value": "APR"} for the [first](ordinal_reference) card?
+    - Does the [second](ordinal_reference) one have an [annual fee]{"entity": "card_feature", "value": "annual fee"}?
+    - What's the [annual fee]{"entity": "card_feature", "value": "annual fee"} for [Citi® Double Cash Card – 18 month BT](card_name)?
+    - Are there [travel rewards]{"entity": "card_feature", "value": "travel rewards"} on the [Chase Sapphire Preferred®](card_name)?
+    - What are the [rewards]{"entity": "card_feature", "value": "rewards"} for the [third](ordinal_reference) card?
+    - [Interest rate]{"entity": "card_feature", "value": "APR"} on [U.S. Bank Altitude® Go Visa Signature](card_name)?
+    - What's the [APR]{"entity": "card_feature", "value": "APR"}?
+    - Does it have [rewards]{"entity": "card_feature", "value": "rewards"}?
+    - is there a [fee]{"entity": "card_feature", "value": "annual fee"} for the [second](ordinal_reference) one?
+    - [minimum credit score]{"entity": "card_feature", "value": "minimum credit score"} for [Discover it® Student Cash Back](card_name)?
+    - what [score]{"entity": "card_feature", "value": "minimum credit score"} do i need for the [first](ordinal_reference) card?
+    - [issuer]{"entity": "card_feature", "value": "issuer"} for the [third](ordinal_reference)?
+    - who issues the [Capital One QuicksilverOne®](card_name)?
+    - Does the [first](ordinal_reference) card have [travel insurance]{"entity": "card_feature", "value": "travel insurance"}?
+    - What about the [signup bonus]{"entity": "card_feature", "value": "signup bonus"} for the [second](ordinal_reference) one?
+    - Are there [foreign transaction fees]{"entity": "card_feature", "value": "foreign transaction fee"} on the [Capital One VentureOne Rewards Credit Card](card_name)?
+    - Is there an [intro APR]{"entity": "card_feature", "value": "intro APR"} for purchases on the [last](ordinal_reference) card?
+    - More details on the [travel perks]{"entity": "card_feature", "value": "travel benefits"} for the [Amex Platinum](card_name)?
+    - Does the [Wells Fargo Active Cash® Card](card_name) have [cell phone protection]{"entity": "card_feature", "value": "cell phone protection"}?
+    - Tell me about the [points system]{"entity": "card_feature", "value": "rewards type"} for the [Marriott Bonvoy Boundless® Credit Card](card_name).
+    - Any [balance transfer offers]{"entity": "card_feature", "value": "intro APR BT"} on the [Citi Double Cash](card_name)?
+    - Is there an [intro APR for balance transfers]{"entity": "card_feature", "value": "intro APR BT"} on the second one?
+    - Tell me the [introductory APR for BT]{"entity": "card_feature", "value": "intro APR BT"}
+    - What is the [welcome offer]{"entity": "card_feature", "value": "signup bonus"} for the first card?
+    - Does the third card have an [intro purchase APR]{"entity": "card_feature", "value": "intro APR purchase"}?
+    - Any special [balance transfer offer]{"entity": "card_feature", "value": "intro APR BT"}?
+    - What about [international fees]{"entity": "card_feature", "value": "foreign transaction fee"} on the VentureOne?
+    - Does the first one have a [sign up bonus]{"entity": "card_feature", "value": "signup bonus"}?
+    - What [FICO]{"entity": "card_feature", "value": "minimum credit score"} do I need for the Freedom Flex?
 
 - lookup: card_name
   examples: |
@@ -136,7 +152,22 @@ nlu:
     - Discover it® Student Cash Back
     - Citi® Double Cash Card – 18 month BT
     - U.S. Bank Altitude® Go Visa Signature
-    # Add any other card names from your CSV here
+    - The Platinum Card® from American Express
+    - Amex Platinum
+    - Capital One VentureOne Rewards Credit Card
+    - VentureOne
+    - Wells Fargo Active Cash® Card
+    - Active Cash
+    - Chase Freedom Flex℠
+    - Freedom Flex
+    - Discover it® Secured Credit Card
+    - Discover Secured
+    - Delta SkyMiles® Gold American Express Card
+    - Delta Gold Amex
+    - Marriott Bonvoy Boundless® Credit Card
+    - Bonvoy Boundless
+    - Ink Business Cash® Credit Card
+    - Ink Business Cash
 
 - synonym: first
   examples: |
@@ -159,4 +190,3 @@ nlu:
   examples: |
     - final
     - ending
-    - number 3

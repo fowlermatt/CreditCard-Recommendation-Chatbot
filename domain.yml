@@ -20,6 +20,7 @@ entities:
   - duration
   - card_name
   - ordinal_reference
+  - card_feature
 
 slots:
   annual_inc:

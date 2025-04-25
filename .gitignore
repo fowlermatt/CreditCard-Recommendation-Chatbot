@@ -1,0 +1,6 @@
+# Python / Rasa
+venv/
+.rasa/
+models/
+*.csv
+__pycache__/

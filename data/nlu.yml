@@ -1,0 +1,162 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+    - yo
+    - wassup
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+    - gotta go
+    - talk soon
+
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+    - sure
+    - ok
+    - yeah
+    - alright
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+    - nope
+    - nah
+
+- intent: card_recommendation
+  examples: |
+    - Which credit cards can I qualify for?
+    - Which cards can I qualify for?
+    - Recommend me cards
+    - Suggest me some cards
+    - Show me credit card options
+    - What cards match my profile?
+    - Can you recommend a credit card?
+    - Which card should I apply for?
+    - Recommend me a credit card
+    - Cards?
+    - Recommend cards
+    - find cards for me
+    - what cards are good for me?
+    - I need a credit card recommendation
+    - help me find a card
+
+- intent: inform
+  examples: |
+    - $65000
+    - My income is $75k
+    - I make about $50,000 a year
+    - 710
+    - my credit score is 720
+    - score is 680
+    - 20%
+    - 0.18
+    - My DTI is 15 percent
+    - debt to income is 25
+    - 6 years
+    - employed for 5 years
+    - just 1 year
+    - it's 10
+    - annual income is $100000
+    - maybe 690 for credit score
+    - around 12% DTI
+    - 15 years employment
+
+- intent: ask_card_details
+  examples: |
+    - Tell me more about the [first](ordinal_reference) one
+    - What are the details for the [second](ordinal_reference) card?
+    - More info on the [last](ordinal_reference) recommendation
+    - Can you give me details about the [Citi Double Cash Card – 18 month BT](card_name) card?
+    - Tell me about [Discover it Student Cash Back](card_name)
+    - What about the [third](ordinal_reference) option?
+    - More details please
+    - Tell me more
+    - details on [U.S. Bank Altitude Go Visa Signature](card_name)?
+    - info on the [1st](ordinal_reference) card
+    - the [second](ordinal_reference) one, please
+    - What can you tell me about the [first](ordinal_reference)?
+
+- intent: ask_specific_feature
+  examples: |
+    - What is the APR for the [first](ordinal_reference) card?
+    - Does the [second](ordinal_reference) one have an annual fee?
+    - What's the annual fee for [Citi Double Cash Card – 18 month BT](card_name)?
+    - Are there travel rewards on the [Chase Sapphire Preferred](card_name)?
+    - What are the rewards for the [third](ordinal_reference) card?
+    - Interest rate on [U.S. Bank Altitude Go Visa Signature](card_name)?
+    - What's the APR?
+    - Does it have rewards?
+    - is there a fee for the [second](ordinal_reference) one?
+    - minimum credit score for [Discover it Student Cash Back](card_name)?
+    - what score do i need for the [first](ordinal_reference) card?
+    - issuer for the [third](ordinal_reference)?
+    - who issues the [Capital One QuicksilverOne](card_name)?
+
+- lookup: card_name
+  examples: |
+    - Chase Sapphire Preferred®
+    - Capital One QuicksilverOne®
+    - Discover it® Student Cash Back
+    - Citi® Double Cash Card – 18 month BT
+    - U.S. Bank Altitude® Go Visa Signature
+    # Add any other card names from your CSV here
+
+- synonym: first
+  examples: |
+    - 1st
+    - number 1
+    - initial
+    - primary
+
+- synonym: second
+  examples: |
+    - 2nd
+    - number 2
+
+- synonym: third
+  examples: |
+    - 3rd
+    - number 3
+
+- synonym: last
+  examples: |
+    - final
+    - ending
+    - number 3

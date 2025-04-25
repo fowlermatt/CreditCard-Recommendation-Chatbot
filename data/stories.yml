@@ -1,0 +1,97 @@
+version: "3.1"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+# --- Story showing successful form filling using 'inform' ---
+- story: Fill form using inform intent and validation
+  steps:
+  - intent: card_recommendation
+  - action: card_request_form
+  - active_loop: card_request_form
+  - slot_was_set:
+    - requested_slot: annual_inc
+  - intent: inform # User provides income like "$70k" or "My income is 70000"
+    entities:
+    - amount-of-money: 70000
+  # Form calls validate_card_request_form implicitly which calls validate_annual_inc
+  # If validation succeeds, slot is set, form asks next question
+  - action: card_request_form
+  - slot_was_set:
+    - annual_inc: 70000.0
+  - slot_was_set:
+    - requested_slot: fico_high
+  - intent: inform # User provides FICO like "750"
+    entities:
+    - number: 750
+  # Form calls validate_card_request_form implicitly which calls validate_fico_high
+  - action: card_request_form
+  - slot_was_set:
+    - fico_high: 750.0
+  - slot_was_set:
+    - requested_slot: dti
+  - intent: inform # User provides DTI like "15%" or ".15"
+    entities:
+    - percentage: 15 # Assuming Duckling extracts percentage
+    # Or number: 15 / 0.15
+  # Form calls validate_card_request_form implicitly which calls validate_dti
+  - action: card_request_form
+  - slot_was_set:
+    - dti: 15.0 # Value depends on your validation logic
+  - slot_was_set:
+    - requested_slot: emp_length_num
+  - intent: inform # User provides years like "5 years" or "five"
+    entities:
+    - duration: 5 # Assuming Duckling extracts duration
+  # Form calls validate_card_request_form implicitly which calls validate_emp_length_num
+  - action: card_request_form
+  - slot_was_set:
+    - emp_length_num: 5.0
+  # All slots filled, form finishes and deactivates
+  - action: card_request_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # Rule triggers recommendation action
+  - action: action_recommend_card
+  - action: action_listen # Bot waits for next input
+
+# --- Stories for handling follow-up AFTER recommendation ---
+
+- story: Recommendation followed by ordinal detail request
+  steps:
+  # Start after recommendation is given and relevant slots are set
+  - action: action_recommend_card
+  - slot_was_set:
+    - recommended_card_1: "Discover it® Student Cash Back" # Example value
+  - intent: ask_card_details
+    entities:
+     - ordinal_reference: "first"
+  - action: action_provide_card_details
+  # Example continuation
+  - intent: affirm # User might say thanks or ok
+  - action: utter_happy # Example response
+
+- story: Recommendation followed by specific name detail request
+  steps:
+  # Start after recommendation is given
+  - action: action_recommend_card
+  - intent: ask_specific_feature
+    entities:
+      - card_name: "Citi Double Cash Card – 18 month BT" # Use example name from NLU/CSV
+  - action: action_provide_card_details
+  # Example continuation
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: Recommendation only (no follow-up)
+  steps:
+  # Start after recommendation is given
+  - action: action_recommend_card
+  # User does something else, like saying thanks or goodbye
+  - intent: goodbye
+  - action: utter_goodbye

@@ -1,0 +1,18 @@
+rules:
+  # 1) When the user signals they want card recommendations,
+  #    activate the form.
+  - rule: Activate card request form
+    steps:
+      - intent: card_recommendation
+      - action: card_request_form
+      - active_loop: card_request_form
+
+  # 2) As soon as all required slots are present (even if in one go),
+  #    submit the form and call your recommendation action.
+  - rule: Submit card request form
+    condition:
+      - active_loop: card_request_form
+    steps:
+      - action: card_request_form
+      - active_loop: null
+      - action: action_recommend_card

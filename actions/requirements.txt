@@ -11,3 +11,5 @@ python-Levenshtein
 
 SQLAlchemy<2.0
 
+honcho
+

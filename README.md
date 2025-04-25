@@ -21,22 +21,57 @@ A conversational assistant that recommends the best U.S. credit card for a user 
     ```bash
     pip install -r requirements.txt
     ```
-6.  **Train Rasa Model:** Train the NLU and Core models (needed initially and after changing NLU/domain/stories/config):
+6.  **Install Honcho (for Option 3 Running):** Install the process manager:
+    ```bash
+    pip install honcho
+    ```
+    *(Optional but recommended: Add `honcho` to `requirements.txt` by running `pip freeze > requirements.txt` after installing it).*
+7.  **Create Procfile (for Option 3 Running):** In the project root directory (`<path-to-your-project>/Credit-Recommendation-Chatbot`), create a file named exactly `Procfile` (no extension) with the following content:
+    ```Procfile
+    # Procfile for Rasa Credit Bot
+    # Run with: honcho start (after activating venv)
+
+    actions: rasa run actions
+    rasa: rasa run --enable-api --cors "*"
+    webui: python3 -m http.server 8080 --directory ./chatbot-ui
+    ```
+8.  **Train Rasa Model:** Train the NLU and Core models (needed initially and after changing NLU/domain/stories/config):
     ```bash
     rasa train
     ```
 
 ## Running the Chatbot
 
-You have two options to interact with the bot:
+You have three options to interact with the bot:
 
-### Option 1: Command Line Interface (`rasa shell`)
+### Option 1: Custom Web Interface (Using Honcho - Recommended)
+
+This uses the graphical chat interface and manages all server processes in **one** terminal window using Honcho (requires Setup steps 6 & 7 to be completed).
+
+1.  **Navigate to Project Root:**
+    ```bash
+    cd <path-to-your-project>/Credit-Recommendation-Chatbot
+    ```
+2.  **Activate Virtual Environment:**
+    ```bash
+    source venv/bin/activate
+    ```
+3.  **Start All Processes:**
+    ```bash
+    honcho start
+    ```
+    * Honcho will run the `actions`, `rasa`, and `webui` commands defined in your `Procfile`. You will see interleaved logs from all processes.
+
+4.  **Access the UI:**
+    * Open your web browser and go to: `http://localhost:8080` (or the port specified in your `Procfile` for `webui`).
+
+### Option 2: Command Line Interface (`rasa shell`)
 
 This uses Rasa's built-in text interface. You'll need **two** separate terminal windows/tabs.
 
 1.  **Terminal 1: Start Action Server**
-    * Navigate to the project root (`<path-to-your-project>/Credit-Recommendation-Chatbot`).
-    * Activate the virtual environment (`source venv/bin/activate` or equivalent).
+    * Navigate to the project root.
+    * Activate the virtual environment.
     * Run: `rasa run actions`
     * *Keep this terminal running.*
 
@@ -46,13 +81,13 @@ This uses Rasa's built-in text interface. You'll need **two** separate terminal 
     * Run: `rasa shell`
     * *Interact with the bot in this terminal.*
 
-### Option 2: Custom Web Interface
+### Option 3: Custom Web Interface (Manual Terminals)
 
-This provides a graphical chat interface in your browser. You'll need **three** separate terminal windows/tabs.
+This uses the graphical chat interface in your browser, requiring manual management of three terminals.
 
 1.  **Terminal 1: Start Action Server**
-    * Navigate to the project root (`<path-to-your-project>/Credit-Recommendation-Chatbot`).
-    * Activate the virtual environment (`source venv/bin/activate` or equivalent).
+    * Navigate to the project root.
+    * Activate the virtual environment.
     * Run: `rasa run actions`
     * *Keep this terminal running.*
 
@@ -60,21 +95,22 @@ This provides a graphical chat interface in your browser. You'll need **three** 
     * Navigate to the project root.
     * Activate the virtual environment.
     * Run: `rasa run --enable-api --cors "*"`
-        * `--enable-api`: Required for the UI to communicate.
-        * `--cors "*"`: Allows connections from your local browser (restrict in production).
     * *Keep this terminal running.*
 
 3.  **Terminal 3: Serve Frontend UI**
     * Navigate to the UI subdirectory: `cd <path-to-your-project>/Credit-Recommendation-Chatbot/chatbot-ui`
     * Start Python's simple web server: `python3 -m http.server 8080`
-        * *(If port 8080 is busy, try another port like 8000 or 9000).*
+        * *(If port 8080 is busy, try another port).*
     * *Keep this terminal running.*
 
 4.  **Access the UI:**
-    * Open your web browser (Chrome, Firefox, etc.).
-    * Go to: `http://localhost:8080` (or the port you used in step 3).
+    * Open your web browser and go to: `http://localhost:8080` (or the port you used).
 
-**Stopping the Servers:** Press `Ctrl + C` in each terminal window running a server process.
+
+**Stopping the Servers:**
+
+* If using Option 1 or 2, press `Ctrl + C` in each terminal window.
+* If using Option 3 (Honcho), press `Ctrl + C` in the single terminal where `honcho start` is running.
 
 ## Docker Instructions (Optional)
 
@@ -92,7 +128,8 @@ If you prefer using Docker:
    *Note: This default Docker setup runs the Rasa server. To interact, you would typically use the REST API (e.g., via the custom web UI pointing to `http://localhost:5005`, or tools like Postman). It doesn't automatically serve the custom UI files; modifying the Docker setup would be needed for that.*
 
 ## What to Ask?
-### Check InputExamples.md for more
+
+See the `InputExamples.md` file for a comprehensive list of example inputs, or try these:
 
 **Starting the Recommendation:**
 
